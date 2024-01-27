@@ -1,9 +1,9 @@
-import * as fs from "fs";
+const fs = require("fs").promises;
 
-import * as path from "path";
-import * as process from "process";
-import { authenticate } from "@google-cloud/local-auth";
-import { google } from "googleapis";
+const path = require("path");
+const process = require("process");
+const { authenticate } = require("@google-cloud/local-auth");
+const { google } = require("googleapis");
 
 const SCOPES = [
     "https://www.googleapis.com/auth/drive.metadata.readonly",
@@ -83,7 +83,7 @@ async function getSheetsData(id, range, authClient) {
     return response.data.values;
 }
 
-export async function getCurrentAttendenceSheetData() {
+async function getCurrentAttendenceSheetData() {
     const client = await authorize();
     const sheet_id = await getFileID(
         "'19HMWnXdKimqY96mCb_CA4VYFD76PR3al' in parents and name contains '[current]'",
@@ -94,10 +94,17 @@ export async function getCurrentAttendenceSheetData() {
     return sheet_data;
 }
 
-export async function getHonourRollSheetData() {
+async function getHonourRollSheetData() {
     const client = await authorize();
     const sheet_id = await getFileID("name contains '[honour roll]'", client);
     const sheet_data = await getSheetsData(sheet_id, "A1:D30", client);
 
     return sheet_data;
 }
+
+getCurrentAttendenceSheetData().then(console.log);
+
+module.exports = {
+    getCurrentAttendenceSheetData,
+    getHonourRollSheetData,
+};
