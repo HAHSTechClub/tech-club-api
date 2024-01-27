@@ -102,8 +102,6 @@ async function getHonourRollSheetData() {
     return sheet_data;
 }
 
-getCurrentAttendenceSheetData().then(console.log);
-
 module.exports = {
     getCurrentAttendenceSheetData,
     getHonourRollSheetData,

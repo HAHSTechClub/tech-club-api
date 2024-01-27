@@ -9,8 +9,6 @@ function sortLeaderboardData(data) {
         };
     });
 
-    console.log(users_array);
-
     // SORT USERS BASED ON THIER POINTS
     sorted_array = users_array.sort((userA, userB) => {
         if (userA.points > userB.points) {

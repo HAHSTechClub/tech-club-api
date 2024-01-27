@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const {
     getCurrentAttendenceSheetData,
     getHonourRollSheetData,
@@ -7,6 +8,7 @@ const { sortLeaderboardData, sortHonourRollData } = require("./dataFilter.js");
 
 const port = 3000;
 const app = express();
+app.use(cors());
 
 app.get("/", (request, response) => response.send("Hello World"));
 
