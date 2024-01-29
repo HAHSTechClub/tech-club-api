@@ -1,5 +1,5 @@
 const fs = require("fs").promises;
-
+require("dotenv").config();
 const path = require("path");
 const process = require("process");
 const { authenticate } = require("@google-cloud/local-auth");
@@ -14,6 +14,16 @@ const TOKEN_PATH = path.join(process.cwd(), "token.json");
 const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 
 let authClient = null;
+
+async function createCredentialFiles() {
+    try {
+        await fs.readFile(TOKEN_PATH);
+        await fs.readFile(CREDENTIALS_PATH);
+    } catch (err) {
+        await fs.writeFile(TOKEN_PATH, process.env.TOKEN);
+        await fs.writeFile(CREDENTIALS_PATH, process.env.CREDENTIALS);
+    }
+}
 
 async function loadSavedCredentialsIfExist() {
     try {
@@ -43,6 +53,7 @@ async function saveCredentials(client) {
  *
  */
 async function authorize() {
+    await createCredentialFiles();
     let client = await loadSavedCredentialsIfExist();
     if (client) {
         return client;
@@ -106,3 +117,5 @@ module.exports = {
     getCurrentAttendenceSheetData,
     getHonourRollSheetData,
 };
+
+getCurrentAttendenceSheetData().then(console.log);
