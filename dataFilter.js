@@ -54,7 +54,7 @@ function sortHonourRollData(data) {
     //     ["2023", "Kevin Francis", "10L", "Tech Club Logo Designer"],
     // ];
 
-    sortedData = data.slice(1).reduce((years, object) => {
+    const yearsObject = data.slice(1).reduce((years, object) => {
         const personObject = {
             name: object[1],
             class: object[2],
@@ -70,7 +70,14 @@ function sortHonourRollData(data) {
         return years;
     }, {});
 
-    return sortedData;
+    const yearsList = Object.keys(yearsObject)
+        .reduce((total, year) => {
+            total.push({ year: parseInt(year), people: yearsObject[year] });
+            return total;
+        }, [])
+        .sort((a, b) => (a > b ? 1 : -1));
+
+    return yearsList;
 }
 
 module.exports = {
