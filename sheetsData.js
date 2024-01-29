@@ -117,5 +117,3 @@ module.exports = {
     getCurrentAttendenceSheetData,
     getHonourRollSheetData,
 };
-
-getCurrentAttendenceSheetData().then(console.log);
