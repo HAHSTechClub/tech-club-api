@@ -46,7 +46,32 @@ function sortLeaderboardData(data) {
     return top_users;
 }
 
-function sortHonourRollData(data) {}
+function sortHonourRollData(data) {
+    // Sample Data
+    // [
+    //     ["Year", "Name", "Class", "Title"],
+    //     ["2023", "Mikayla Rochadi", "10L", "Term 4 Leaderboard Winner"],
+    //     ["2023", "Kevin Francis", "10L", "Tech Club Logo Designer"],
+    // ];
+
+    sortedData = data.slice(1).reduce((years, object) => {
+        const personObject = {
+            name: object[1],
+            class: object[2],
+            title: object[3],
+        };
+
+        if (object[0] in years) {
+            years[object[0]].push(personObject);
+        } else {
+            years[object[0]] = [personObject];
+        }
+
+        return years;
+    }, {});
+
+    return sortedData;
+}
 
 module.exports = {
     sortLeaderboardData,

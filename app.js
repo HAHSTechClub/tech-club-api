@@ -21,8 +21,7 @@ app.get("/leaderboard-users", async (request, response) => {
 app.get("/honour-roll-data", async (request, response) => {
     const data = await getHonourRollSheetData();
     const sortedData = sortHonourRollData(data);
-    response.json(sortedData);;
-    response.json(sortedData)
-})
+    response.json(sortedData);
+});
 
 app.listen(port, () => console.log(`Listening at ${port}`));
