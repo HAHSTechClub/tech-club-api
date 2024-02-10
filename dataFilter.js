@@ -1,13 +1,16 @@
 function sortLeaderboardData(data) {
     const max_rank = 7;
 
-    users_array = data.slice(1).map((row, index) => {
-        return {
-            firstName: row[0],
-            lastName: row[1],
-            points: parseInt(row[2]),
-        };
-    });
+    users_array = data
+        .slice(1)
+        .map((row, index) => {
+            return {
+                firstName: row[0],
+                lastName: row[1],
+                points: parseInt(row[2]),
+            };
+        })
+        .filter((user) => user.firstName != "");
 
     // SORT USERS BASED ON THIER POINTS
     sorted_array = users_array.sort((userA, userB) => {
